@@ -18,6 +18,8 @@
 
 @implementation Timer
 
+
+//Create timer shared instance
 + (Timer *)sharedInstance {
     static Timer *sharedInstance = nil;
     static dispatch_once_t onceToken;
@@ -33,12 +35,16 @@
     return sharedInstance;
 }
 
+//set isON to No or False and call roundCompleteNotification
 - (void)endTimer
 {
     self.isOn = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:TimerCompleteNotification object:nil];
 }
 
+//If seconds in larger than 0 subtract one & call secondTickNotification
+//If seconds is equal to 0 and minutes is larger than 0 subtract 1 from minutes
+//Otherwise end the timer
 - (void)decreaseSecond
 {
     if (self.seconds > 0)
@@ -58,6 +64,8 @@
     }
 }
 
+//Set inOn to NO or False
+//Cancel all requests for the target
 - (void)cancelTimer
 {
     self.isOn = NO;
@@ -65,6 +73,11 @@
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
+//set isON to YES and call checkActive
+//Set timer length to the amount of time in the round.
+//set the expiration date property to that time
+//Create a LocalNotification and set the fireDate,timeZone, soundName, alertBody
+//schedule the local notification.
 - (void)startTimer
 {
     self.isOn = YES;
@@ -84,6 +97,7 @@
     [self checkActive];
 }
 
+//checks isOn if yes it calls decreaseSecond and performs checkActive after a second delay
 - (void)checkActive
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -94,12 +108,14 @@
     }
 }
 
+//Add the expiration date to the background
 - (void)prepareForBackground
 {
     [[NSUserDefaults standardUserDefaults] setObject:self.expirationDate forKey:expirationDate];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+//load the expiration date from the background
 - (void)loadFromBackground
 {
     self.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:expirationDate];

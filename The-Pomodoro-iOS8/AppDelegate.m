@@ -22,21 +22,27 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
     [AppearanceController initializeAppearanceDefaults];
+
+    
+    //Create a Timer View Controller
+    //Add tabBarItem.title and tabBarItem.image
     TimerViewController *timerVC = [TimerViewController new];
     timerVC.tabBarItem.title = @"Timer";
     timerVC.tabBarItem.image = [UIImage imageNamed:@"timer.png"];
     
+    //Create a new RoundsViewController and initWithRootViewController
     RoundsViewController *roundsVC = [RoundsViewController new];
     UINavigationController *roundsNavController = [[UINavigationController alloc] initWithRootViewController:roundsVC];
     roundsNavController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Rounds" image:[UIImage imageNamed:@"rounds.png"] tag:1];
     
-    
+    //Create a TabBarController and add the viewController to the viewControllers array
     UITabBarController *tabBarController = [UITabBarController new];
     tabBarController.viewControllers = @[timerVC, roundsNavController];
     
+    //set the rootViewController as the tabBarController
     self.window.rootViewController = tabBarController;
-
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

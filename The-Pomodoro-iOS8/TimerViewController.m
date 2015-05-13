@@ -18,6 +18,8 @@
 
 @implementation TimerViewController
 
+
+//register for notification
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -41,30 +43,39 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+//Unregister for notifications
 - (void)dealloc
 {
     [self unregisterForNotifications];
 }
 
+//disable the timerButton
+//Start the timer
 - (IBAction)timerButtonPressed {
     self.timerButton.enabled = NO;
     [[Timer sharedInstance] startTimer];
 }
 
+//Call update timer and enable the button
 - (void)newRound
 {
     [self updateTimerLabel];
     self.timerButton.enabled = YES;
 }
 
+//Set the minutes and the seconds to the Timer seconds and minutes property
 - (void)updateTimerLabel
 {
     NSInteger minutes = [Timer sharedInstance].minutes;
     NSInteger seconds = [Timer sharedInstance].seconds;
     
+    //set the TimerLabel using the timerStringWithMinutes method
     self.timerLabel.text = [self timerStringWithMinutes:minutes andSeconds:seconds];
 }
 
+//If the minutes or seconds is greater than 10 set timerString as is
+//If minutes or strings is less than 10 add a 0 in front of the number
 - (NSString *)timerStringWithMinutes:(NSInteger)minutes andSeconds:(NSInteger)seconds
 {
     NSString *timerString;
@@ -90,6 +101,7 @@
     return timerString;
 }
 
+//Register for the notfications
 - (void)registerForNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTimerLabel) name:SecondTickNotification object:nil];
@@ -97,6 +109,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newRound) name:NewRoundNotification object:nil];
 }
 
+//Unregister for the notfications
 - (void)unregisterForNotifications
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -11,6 +11,9 @@
 
 @implementation AppearanceController
 
+//Change the barTintColor
+//Use setTitleTextAttributes to change the text attributes.
+//Change the tab bar color
 + (void)initializeAppearanceDefaults
 {
     [[UINavigationBar appearance] setBarTintColor:[UIColor purpleColor]];
