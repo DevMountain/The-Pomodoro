@@ -11,6 +11,7 @@
 static NSString *SecondTickNotification = @"secondTickNotification";
 static NSString *RoundCompleteNotification = @"roundCompleteNotification";
 static NSString *NewRoundNotification = @"newRoundNotification";
+static NSString *expirationDate = @"expiryDate";
 
 @interface Timer : NSObject
 
@@ -21,5 +22,7 @@ static NSString *NewRoundNotification = @"newRoundNotification";
 
 - (void)startTimer;
 - (void)cancelTimer;
+- (void)prepareForBackground;
+- (void)loadFromBackground;
 
 @end

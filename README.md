@@ -142,3 +142,41 @@ Pay attention to what the class does for you, walk through each method, understa
   - Add a public method that returns an NSArray of imageNames for each round called ```imageNames```
     - Example: ```@[@"work.png", @"play".png, @"work.png", @"play".png, @"work.png", @"play".png, @"work.png", @"nap.png"]```
   - In the cellForRowAtIndexPath method, set the image of the imageView of the cell to a UIImage with file named ```[Rounds Controller imageNames][indexPath.row]```
+
+##Day 3 - UILocalNotifications and UIAlertController
+
+### Step 9: Add an ```expirationDate``` property to ```Timer```
+- Create a private, NSDate property on ```Timer``` called ```expirationDate```
+- In the ```startTimer``` method, set ```expirationDate``` to the date (time)
+ when the timer will expire
+
+### Step 10: Add a UILocalNotification
+- Import UIKit to ```Timer```
+- In the ```startTimer``` method of ```Timer```, instantiate a UILocalNotification.
+- Set the following properties on your UILocalNotifiation
+  - fireDate
+  - timeZone
+  - soundName
+  - alertBody
+- Don't forget to schedule the notification
+- In ```cancelTimer```, cancel all local notifications
+- In the AppDelegate, in applicationDidBecomeActive, registerUserNotifcationsSettings
+
+### Step 11: Add a UIAlertController to handle UILocalNotifications while in app
+- Implement the didRecieveLocalNotification method in AppDelegate
+  - Create a UIAlertController
+  - Add an action to dismiss alert and do nothing
+  - Add an action to start the next round
+    - Use completion handler to call ```startTimer```
+  - Present UIAlertController instance
+
+### Step 12: Prepare and load the timer from background
+- Add a public, void method called ```prepareForBackground``` to ```Timer```
+  - store the ```expirationDate``` property to NSUserDefaults
+  - syncronize the NSUserDefaults
+- Add a public, void method called ```loadFromBackground``` to ```Timer```
+  - set ```expirationDate``` to the expirationDate from NSUserDefault
+  - get the time between now and ```expirationDate``` to set the timer
+  - set the timer
+- In the AppDelegate method applicationDidEnterBackground, call ```prepareForBackground``` on the ```Timer``` ```sharedInstance```
+- In the AppDelegate method applicationWillEnterForeground, call ```loadFromBackground``` on the ```Timer``` ```sharedInstance```
