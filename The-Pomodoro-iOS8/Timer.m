@@ -74,6 +74,10 @@
 }
 
 //set isON to YES and call checkActive
+//Set timer length to the amount of time in the round.
+//set the expiration date property to that time
+//Create a LocalNotification and set the fireDate,timeZone, soundName, alertBody
+//schedule the local notification.
 - (void)startTimer
 {
     self.isOn = YES;
@@ -103,12 +107,14 @@
     }
 }
 
+//Add the expiration date to the background
 - (void)prepareForBackground
 {
     [[NSUserDefaults standardUserDefaults] setObject:self.expirationDate forKey:expirationDate];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+//load the expiration date from the background
 - (void)loadFromBackground
 {
     self.expirationDate = [[NSUserDefaults standardUserDefaults] objectForKey:expirationDate];
