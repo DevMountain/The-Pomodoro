@@ -82,7 +82,7 @@ Pay attention to what the class does for you, walk through each method, understa
 
 - Add a method to your ```TimerViewController``` to update the ````timerLabel``` from the ```sharedInstance``` of ```Timer``` using the helper method above.
 - Subscribe your ```TimerViewController``` to run the update label method on the ```SecondTickNotification```.
-  - ```registerForNotifications``` should be placed in a custom init method.
+  - ```registerForNotifications``` should be placed in a custom **DESIGNATED** init method.
 - Unsubscribe your ```TimerViewController``` from notifications when instances are deallocated.
 - In your timer button pressed method (written above but left empty), call ```startTimer``` on ```sharedInstace``` of ```Timer```.
   - note: We need to disable the button while the timer is going.
