@@ -71,7 +71,6 @@
     self.timerLabel.text = [[Timer sharedInstance] stringOfTimeRemaining];
 }
 
-
 //Register for the notfications
 - (void)registerForNotifications
 {

@@ -31,22 +31,14 @@
 //Set the minutes property using the roundTimes array and the currentRound as the index.
 - (void)roundSelected
 {
-    [Timer sharedInstance].minutes = [[self roundTimes][self.currentRound] integerValue];
-    [Timer sharedInstance].seconds = 0;
+    [Timer sharedInstance].seconds = [[self roundTimes][self.currentRound] integerValue];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NewRoundNotification object:nil];
 }
 
-- (NSArray *)roundTimes
+-(NSArray *)roundTimes
 {
-    return @[@25, @5, @25, @5, @25, @5, @25, @15];
-}
-
-
-//Create an array of images for the image view
-+ (NSArray *)imageNames
-{
-    return @[@"work.png", @"play.png", @"work.png", @"play.png", @"work.png", @"play.png", @"work.png", @"nap.png"];
+    return @[@1500, @300, @1500, @300, @1500, @300, @1500, @900];
 }
 
 @end

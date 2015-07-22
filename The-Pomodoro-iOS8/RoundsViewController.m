@@ -38,9 +38,6 @@ static NSString *reuseID = @"reuseID";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.title = @"Rounds";
-    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -72,16 +69,15 @@ static NSString *reuseID = @"reuseID";
 }
 
 #pragma mark - TableView DataSource Methods
-//Use the imageNames array to get the correct image for the cell
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
     
     NSArray *roundsArray = [RoundsController sharedInstance].roundTimes;
-    NSNumber *minutes = roundsArray[indexPath.row];
+    NSNumber *seconds = roundsArray[indexPath.row];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%li minutes", (long)[minutes integerValue]];
-    cell.imageView.image = [UIImage imageNamed:[RoundsController imageNames][indexPath.row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%li minutes", [seconds longValue] / 60];
     
     return cell;
 }

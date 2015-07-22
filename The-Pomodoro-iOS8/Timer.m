@@ -25,15 +25,14 @@
         sharedInstance = [Timer new];
         
         /* code for testing Timer
-        sharedInstance.minutes = 5;
-        sharedInstance.seconds = 10;
+        sharedInstance.seconds = 310;
          */
     });
     
     return sharedInstance;
 }
 
-//set isON to No or False and call roundCompleteNotification
+//set isON to No or False and call TimerCompleteNotification
 - (void)endTimer
 {
     self.isOn = NO;
@@ -48,12 +47,6 @@
     if (self.seconds > 0)
     {
         self.seconds--;
-        [[NSNotificationCenter defaultCenter] postNotificationName:SecondTickNotification object:nil];
-    }
-    else if (self.seconds == 0 && self.minutes > 0)
-    {
-        self.minutes--;
-        self.seconds = 59;
         [[NSNotificationCenter defaultCenter] postNotificationName:SecondTickNotification object:nil];
     }
     else
@@ -88,6 +81,7 @@
     }
 }
 
+
 /*Not Required, helper method*/
 //If the minutes or seconds is greater than 10 set timerString as is
 //If minutes or strings is less than 10 add a 0 in front of the number
@@ -95,22 +89,25 @@
 {
     NSString *timerString;
     
-    if (self.minutes >= 10)
+    NSInteger minutes = self.seconds/60; //integer division
+    NSInteger seconds = self.seconds - (minutes * 60);
+    
+    if (minutes >= 10)
     {
-        timerString = [NSString stringWithFormat:@"%li:", (long)self.minutes];
+        timerString = [NSString stringWithFormat:@"%li:", (long)minutes];
     }
     else
     {
-        timerString = [NSString stringWithFormat:@"0%li:", (long)self.minutes];
+        timerString = [NSString stringWithFormat:@"0%li:", (long)minutes];
     }
     
-    if (self.seconds >= 10)
+    if (seconds >= 10)
     {
-        timerString = [timerString stringByAppendingString:[NSString stringWithFormat:@"%li", (long)self.seconds]];
+        timerString = [timerString stringByAppendingString:[NSString stringWithFormat:@"%li", (long)seconds]];
     }
     else
     {
-        timerString = [timerString stringByAppendingString:[NSString stringWithFormat:@"0%li", (long)self.seconds]];
+        timerString = [timerString stringByAppendingString:[NSString stringWithFormat:@"0%li", (long)seconds]];
     }
     
     return timerString;
