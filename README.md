@@ -12,6 +12,8 @@ Remember, the solution code is here as a resource. Do not copy and paste. Unders
 
 ## Day 1 - UITabBarController and NSNotifications
 
+If you don't finish all the steps today, that is alright. Tomorrow's project will allow ample time to finish both days.
+
 ###Step 1: Initialize and Add the UITabBarController as the RootViewController
 
 - Add view controllers (```TimerViewController```, ```RoundsViewController```) to project (include a XIB for the ```TimerViewController```)
